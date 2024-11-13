@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import type { JobFilterValues } from "../schema/jobFilterSchema";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -46,4 +47,18 @@ export function formatDate(from: string | Date): string {
   }
 
   return "just now";
+}
+
+export function getTitle({ q, type, location, remote }: JobFilterValues) {
+  const titlePrefix = q
+    ? `${q} jobs`
+    : type
+    ? `${type} developer jobs`
+    : remote
+    ? "Remote developer jobs"
+    : "All developer jobs";
+
+  const titleSuffix = location ? ` in ${location}` : "";
+
+  return `${titlePrefix}${titleSuffix}`;
 }
