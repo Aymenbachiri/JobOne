@@ -1,4 +1,5 @@
 import { MyLink } from "../common/MyLink";
+import { ThemeSwitch } from "./ThemeSwitch";
 
 export function Navbar() {
   return (
@@ -9,9 +10,12 @@ export function Navbar() {
           <span>Logo</span>
           <span className="text-xl font-bold tracking-tight">One Jobs</span>
         </MyLink>
-        <button className="w-fit rounded-lg border bg-[#0F172A] p-2 text-white">
-          <MyLink href="/jobs/new">Post a job</MyLink>
-        </button>
+        <div className="flex justify-center items-center gap-3">
+          <button className="w-fit rounded-lg border bg-[#0F172A] p-2 text-white">
+            <MyLink href="/jobs/new">Post a job</MyLink>
+          </button>
+          <ThemeSwitch />
+        </div>
       </nav>
     </header>
   );
