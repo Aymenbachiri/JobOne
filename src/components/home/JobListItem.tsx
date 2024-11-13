@@ -1,4 +1,4 @@
-import { JobType } from "@/lib/helpers/getApprovedJobs";
+import { JobType } from "@/lib/helpers/getAllJobs";
 import { MyImage } from "../common/MyImage";
 import { formatDate, formatMoney } from "@/lib/utils/utils";
 import { BriefcaseIcon } from "@/lib/icons/BriefcaseIcon";
@@ -33,6 +33,7 @@ export function JobListItem({ job }: JobListItemProps) {
         width={100}
         height={100}
         className="self-center rounded-lg"
+        placeholder="blur"
       />
       <div className="flex-grow space-y-3">
         <div>

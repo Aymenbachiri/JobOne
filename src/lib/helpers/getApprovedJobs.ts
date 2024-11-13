@@ -1,34 +1,13 @@
-import { apiUrl } from "@/components/common/constants";
-
-export type JobType = {
-  id: number;
-  slug: string;
-  title: string;
-  type: string;
-  locationType: string;
-  location: string;
-  description: string;
-  salary: number;
-  companyName: string;
-  applicationEmail?: string;
-  applicationUrl?: string;
-  companyLogoUrl?: string;
-  approved: boolean;
-  createdAt?: Date;
-  updatedAt?: Date;
-};
+import type { JobType } from "../types/jobType";
+import { getAllJobs } from "./getAllJobs";
 
 export async function getApprovedJobs(): Promise<JobType[]> {
   try {
-    const res = await fetch(apiUrl);
+    const jobs = await getAllJobs();
 
-    if (!res.ok) {
-      throw new Error(`Failed to fetch jobs: ${res.status} ${res.statusText}`);
-    }
-
-    return res.json();
+    return jobs.filter((job) => job.approved);
   } catch (error) {
-    console.error("Error fetching jobs:", error);
+    console.error("Error fetching approvedjobs:", error);
     throw error;
   }
 }

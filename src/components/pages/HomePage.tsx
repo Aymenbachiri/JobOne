@@ -1,9 +1,8 @@
-import { getApprovedJobs } from "@/lib/helpers/getApprovedJobs";
-import { JobListItem } from "../home/JobListItem";
+import { JobListItemFallback } from "../home/JobListItemFallback";
+import { JobList } from "../home/JobList";
+import { MySuspense } from "@/lib/utils/MySuspense";
 
-export default async function HomePage() {
-  const jobs = await getApprovedJobs();
-
+export default function HomePage() {
   return (
     <main className="m-auto my-10 max-w-5xl space-y-10 px-3">
       <section className="space-y-5 text-center">
@@ -13,9 +12,9 @@ export default async function HomePage() {
         <p className="text-muted-foreground">Find your dream job.</p>
       </section>
       <section className="space-y-4">
-        {jobs.map((job) => (
-          <JobListItem job={job} key={job.id} />
-        ))}
+        <MySuspense fallback={<JobListItemFallback />}>
+          <JobList />
+        </MySuspense>
       </section>
     </main>
   );
