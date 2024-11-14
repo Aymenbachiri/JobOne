@@ -15,6 +15,7 @@ export default function JobFilterSubmitBtn({
   return (
     <button
       type="submit"
+      onClick={() => console.log("clicked")}
       disabled={loading}
       className={cn(
         "w-full rounded-lg border bg-[#0F172A] p-2 text-white disabled:opacity-50",

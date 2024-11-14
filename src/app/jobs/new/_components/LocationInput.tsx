@@ -1,12 +1,14 @@
 "use client";
-
 import { forwardRef, useMemo, useState } from "react";
 import { cities as citiesList } from "@/lib/utils/cities-list";
 
-type LocationInputProps = React.InputHTMLAttributes<HTMLInputElement>;
+interface LocationInputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  onLocationSelected: (location: string) => void;
+}
 
 export default forwardRef<HTMLInputElement, LocationInputProps>(
-  function LocationInput({ ...props }, ref) {
+  function LocationInput({ onLocationSelected, ...props }, ref) {
     const [locationSearchInput, setLocationSearchInput] = useState("");
     const [hasFocus, setHasFocus] = useState(false);
 
@@ -30,7 +32,6 @@ export default forwardRef<HTMLInputElement, LocationInputProps>(
     return (
       <div className="relative">
         <input
-          className="border-input placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           placeholder="Search for a city..."
           type="search"
           value={locationSearchInput}
@@ -41,15 +42,15 @@ export default forwardRef<HTMLInputElement, LocationInputProps>(
           ref={ref}
         />
         {locationSearchInput.trim() && hasFocus && (
-          <div className="absolute z-20 w-full divide-y rounded-b-lg border-x border-b bg-white shadow-xl">
+          <div className="absolute z-20 w-full divide-y rounded-b-lg border-x border-b bg-background shadow-xl">
             {!cities.length && <p className="p-3">No results found.</p>}
             {cities.map((city) => (
               <button
                 key={city}
-                className="block w-full p-2 text-start hover:bg-gray-200"
+                className="block w-full p-2 text-start bg-white hover:bg-gray-100"
                 onMouseDown={(e) => {
                   e.preventDefault();
-
+                  onLocationSelected(city);
                   setLocationSearchInput("");
                 }}
               >

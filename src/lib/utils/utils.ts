@@ -62,3 +62,10 @@ export function getTitle({ q, type, location, remote }: JobFilterValues) {
 
   return `${titlePrefix}${titleSuffix}`;
 }
+
+export function toSlug(str: string) {
+  return str
+    .toLowerCase()
+    .replace(/ /g, "-")
+    .replace(/[^\w-]+/g, "");
+}
