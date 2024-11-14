@@ -2,6 +2,7 @@ import SingleJobPage from "@/components/pages/SingleJobPage";
 import type { Metadata } from "next";
 import { getJobById } from "./_lib/getJobById";
 import { getApprovedJobs } from "@/lib/helpers/getApprovedJobs";
+import { notFound } from "next/navigation";
 
 type Params = Promise<{ id: string }>;
 
@@ -32,6 +33,7 @@ export async function generateMetadata({
 
 export async function generateStaticParams(): Promise<{ id: string }[]> {
   const jobs = await getApprovedJobs();
+  if (!jobs) return notFound();
   return jobs.map((job) => ({ id: String(job.id) }));
 }
 

@@ -11,7 +11,7 @@ export default async function AdminPage() {
       <section className="flex flex-col gap-3">
         <h2 className="text-lg font-bold">Unapproved jobs:</h2>
         {unapprovedJobs.map((job) => (
-          <MyLink key={job.id} href={`/jobs/${job.id}`} className="block">
+          <MyLink key={job.id} href={`/admin/jobs/${job.id}`} className="block">
             <JobListItem job={job} />
           </MyLink>
         ))}
