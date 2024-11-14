@@ -3,17 +3,6 @@ import { z } from "zod";
 
 const requiredString = z.string().min(1, "Required");
 
-const companyLogoSchema = z
-  .custom<File | undefined>()
-  .refine((file) => {
-    if (!file) return true; // Allow undefined/no file
-    return file instanceof File && file.type.startsWith("image/");
-  }, "Must be an image file")
-  .refine((file) => {
-    if (!file) return true; // Allow undefined/no file
-    return file.size < 1024 * 1024 * 2;
-  }, "File must be less than 2MB");
-
 const applicationSchema = z
   .object({
     applicationEmail: z.string().max(100).email().optional().or(z.literal("")),

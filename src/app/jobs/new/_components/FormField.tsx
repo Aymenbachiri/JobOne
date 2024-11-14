@@ -1,90 +1,82 @@
-import Select from "@/components/home/Select";
-import LocationInput from "./LocationInput";
+import type { UseFormRegisterReturn } from "react-hook-form";
 
-type FormFieldProps = {
+interface FormFieldProps {
   label: string;
-  type?:
-    | "text"
-    | "email"
-    | "url"
-    | "number"
-    | "file"
-    | "select"
-    | "textarea"
-    | "location";
   name: string;
+  type?: "text" | "email" | "url" | "number" | "select" | "textarea";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  registration: UseFormRegisterReturn<any>;
+  error?: { message?: string };
   placeholder?: string;
   options?: string[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  control: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  errors: any;
+  className?: string;
+  min?: number;
+  step?: number;
   required?: boolean;
-};
+}
 
-export function FormField({
+export default function FormField({
   label,
-  type = "text",
   name,
+  type = "text",
+  registration,
+  error,
   placeholder,
   options,
-  control,
-  errors,
-  required = false,
+  className = "w-full border rounded p-2",
+  min,
+  step,
+  required,
 }: FormFieldProps) {
-  const { register } = control;
-  const error = errors[name];
+  const renderField = () => {
+    switch (type) {
+      case "select":
+        return (
+          <select {...registration} id={name} name={name} className={className}>
+            <option value="">Select an option</option>
+            {options?.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        );
+
+      case "textarea":
+        return (
+          <textarea
+            {...registration}
+            id={name}
+            name={name}
+            className={`${className} min-h-[200px]`}
+            placeholder={placeholder}
+          />
+        );
+
+      default:
+        return (
+          <input
+            {...registration}
+            type={type}
+            id={name}
+            name={name}
+            className={className}
+            placeholder={placeholder}
+            min={min}
+            step={step}
+            required={required}
+          />
+        );
+    }
+  };
 
   return (
-    <div className="space-y-1">
-      <label
-        htmlFor={name}
-        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-      >
+    <div>
+      <label htmlFor={name} className="block font-medium mb-1">
         {label}
       </label>
-      {type === "select" && options ? (
-        <Select
-          id={name}
-          {...register(name)}
-          defaultValue=""
-          required={required}
-          className="h-10 w-full appearance-none truncate rounded-md border border-input bg-background py-2 pl-3 pr-8 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          <option value="" hidden>
-            Select an option
-          </option>
-          {options.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </Select>
-      ) : type === "textarea" ? (
-        <textarea
-          id={name}
-          {...register(name)}
-          placeholder={placeholder}
-          required={required}
-          className="input h-24 w-full rounded-md border border-input resize-none "
-        />
-      ) : type === "location" ? (
-        <LocationInput
-          {...register(name)}
-          placeholder="Enter city..."
-          aria-invalid={error ? "true" : "false"}
-        />
-      ) : (
-        <input
-          id={name}
-          type={type}
-          {...register(name)}
-          placeholder={placeholder}
-          required={required}
-          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-        />
-      )}
-      {error && <p className="text-red-500 text-sm">{error.message}</p>}
+      {renderField()}
+      {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
     </div>
   );
 }

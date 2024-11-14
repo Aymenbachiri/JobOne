@@ -1,80 +1,73 @@
-import { apiUrl } from "@/components/common/constants";
-import { jobSchema, type JobFormData } from "@/lib/schema/jobSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { createJobSchema, CreateJobValues } from "./validation";
+import { toSlug } from "@/lib/utils/utils";
+import { nanoid } from "nanoid";
+import { registerJob } from "./registerJob";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export function AddNewJob() {
+  const route = useRouter();
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
   const {
     register,
     handleSubmit,
+    watch,
+    control,
+    setValue,
     reset,
     formState: { errors },
-  } = useForm<JobFormData>({
-    resolver: zodResolver(jobSchema),
+  } = useForm<CreateJobValues>({
+    resolver: zodResolver(createJobSchema),
   });
 
-  const onSubmit = async (data: JobFormData) => {
-    console.log("Form submitted with data:", data);
-    setLoading(true);
+  const onSubmit = async (values: CreateJobValues) => {
+    const slug = `${toSlug(values.title)}-${nanoid(10)}`;
+    const companyLogoUrl = values.companyLogo || undefined;
 
+    const jobData = {
+      id: undefined,
+      slug,
+      title: values.title.trim(),
+      type: values.type,
+      companyName: values.companyName.trim(),
+      salary: Number(values.salary) > 0 ? Number(values.salary) : 0,
+      locationType: values.locationType,
+      location: values.location,
+      description: values.description?.trim(),
+      applicationEmail: values.applicationEmail?.trim() || null,
+      applicationUrl: values.applicationUrl?.trim() || null,
+      approved: true,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      companyLogoUrl,
+    };
+
+    setLoading(true);
     try {
-      console.log("Calling registerJob function...");
-      await toast.promise(registerJob(data), {
+      toast.promise(registerJob(jobData as CreateJobValues), {
         loading: "Adding job...",
         success: "Job added successfully!",
-        error: (err: Error) => {
-          console.error("Error during Job submission:", err);
-          return err.message;
-        },
+        error: (err: Error) => err.message,
       });
-      console.log("Job added successfully!");
       reset();
-      router.push("/dashboard");
+      route.push("/job-submitted");
     } catch (error) {
       console.error("Error during Job submission:", error);
     } finally {
       setLoading(false);
     }
   };
-
   return {
     register,
     handleSubmit: handleSubmit(onSubmit),
+    watch,
+    control,
+    setValue,
     errors,
     loading,
+    onSubmit,
   };
-}
-
-async function registerJob(data: JobFormData): Promise<void> {
-  try {
-    console.log("Making API call to", apiUrl);
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      const errorMessage = errorText
-        ? JSON.parse(errorText)?.error || errorText
-        : `Failed to add job: ${response.statusText}`;
-      console.error("Error response:", errorMessage);
-      throw new Error(errorMessage);
-    }
-
-    console.log("Job added successfully!");
-    return await response.json();
-  } catch (error) {
-    console.error("Error adding job:", error);
-    throw error;
-  }
 }

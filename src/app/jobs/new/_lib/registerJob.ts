@@ -1,28 +1,26 @@
-import { apiUrl } from "@/components/common/constants";
-import { type JobFormData } from "@/lib/schema/jobSchema";
+import type { CreateJobValues } from "./validation";
 
-export async function registerJob(data: JobFormData): Promise<void> {
+export async function registerJob(jobData: CreateJobValues): Promise<void> {
   try {
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    const response = await fetch(
+      "https://jobboardbackend.up.railway.app/api/jobs",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(jobData),
+      }
+    );
 
     if (!response.ok) {
       const errorText = await response.text();
-      const errorMessage = errorText
-        ? JSON.parse(errorText)?.error || errorText
-        : `Failed to add job: ${response.statusText}`;
-      throw new Error(errorMessage);
+      throw new Error(
+        `API error: ${response.status} ${response.statusText} - ${errorText}`
+      );
     }
-
-    return await response.json();
   } catch (error) {
-    console.error("Error adding job:", error);
-    throw error;
+    console.error("Error during Job submission:", error);
   }
 }
