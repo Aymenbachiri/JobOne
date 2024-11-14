@@ -29,7 +29,7 @@ export function AddNewJob() {
 
     const jobData = {
       id: undefined,
-      slug,
+      slug: slug,
       title: values.title.trim(),
       type: values.type,
       companyName: values.companyName.trim(),

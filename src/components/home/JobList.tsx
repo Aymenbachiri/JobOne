@@ -2,6 +2,7 @@ import { getApprovedJobs } from "@/lib/helpers/getApprovedJobs";
 import { JobListItem } from "./JobListItem";
 import type { JobFilterValues } from "@/lib/schema/jobFilterSchema";
 import type { JobType } from "@/lib/types/jobType";
+import { MyLink } from "../common/MyLink";
 
 type JobListProps = {
   jobFilterValues: JobFilterValues;
@@ -53,7 +54,9 @@ export async function JobList({ jobFilterValues }: JobListProps) {
   return (
     <>
       {jobs.map((job) => (
-        <JobListItem job={job} key={job.id} />
+        <MyLink href={`/jobs/${job.id}`} key={job.id} className="block">
+          <JobListItem job={job} />
+        </MyLink>
       ))}
       {jobs.length === 0 && (
         <p className="m-auto text-center">
