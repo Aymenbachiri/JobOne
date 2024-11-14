@@ -12,8 +12,8 @@ export default async function JobFilterSidebar({
   defaultValues,
 }: JobFilterSidebarProps) {
   const job = await getApprovedJobs();
-  const jobTypes = job.map((job) => job.type);
-  const Locations = job.map((job) => job.location);
+  const jobTypes = [...new Set(job.map((job) => job.type))];
+  const Locations = [...new Set(job.map((job) => job.location))];
 
   return (
     <aside className="sticky top-0 h-fit rounded-lg border bg-background p-4 md:w-[260px]">
