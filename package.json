@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.3.4",
     "@hookform/resolvers": "^3.9.1",
     "@vercel/blob": "^0.26.0",
     "clsx": "^2.1.1",

@@ -1,5 +1,3 @@
-import { MyLink } from "../common/MyLink";
-
 export function Footer() {
   return (
     <footer className="border-t">
@@ -11,19 +9,14 @@ export function Footer() {
               Connecting talents with opportunities
             </p>
           </section>
-          <nav className="flex flex-wrap gap-5 text-sm text-muted-foreground">
-            <MyLink href="/about" className="hover:underline">
-              About Us
-            </MyLink>
-            <MyLink href="/contact" className="hover:underline">
-              Contact
-            </MyLink>
-            <MyLink href="/terms" className="hover:underline">
-              Terms of Service
-            </MyLink>
-            <MyLink href="/privacy" className="hover:underline">
-              Privacy Policy
-            </MyLink>
+          <nav className="flex flex-wrap gap-1 text-sm text-muted-foreground">
+            <span>Provided by</span>
+            <a
+              href="https://www.linkedin.com/in/aymen-bachiri-9442b5287/"
+              className="underline"
+            >
+              Aymen
+            </a>
           </nav>
         </div>
         <p className="text-center text-sm text-muted-foreground">

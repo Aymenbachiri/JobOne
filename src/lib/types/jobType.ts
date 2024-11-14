@@ -1,5 +1,5 @@
 export type JobType = {
-  id: number;
+  id: string;
   slug: string;
   title: string;
   type: string;

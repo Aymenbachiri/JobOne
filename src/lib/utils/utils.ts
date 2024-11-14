@@ -1,6 +1,8 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import type { JobFilterValues } from "../schema/jobFilterSchema";
+import type { User } from "@clerk/nextjs/server";
+import type { UserResource } from "@clerk/types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -68,4 +70,8 @@ export function toSlug(str: string) {
     .toLowerCase()
     .replace(/ /g, "-")
     .replace(/[^\w-]+/g, "");
+}
+
+export function IsAdmin(user: UserResource | User) {
+  return user.publicMetadata?.role === "admin";
 }
