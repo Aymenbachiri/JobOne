@@ -11,6 +11,8 @@ import LocationInput from "./LocationInput";
 import { useState } from "react";
 import { toSlug } from "@/lib/utils/utils";
 import { nanoid } from "nanoid";
+import path from "path";
+import { put } from "@vercel/blob";
 
 export default function NewJobForm() {
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -34,6 +36,8 @@ export default function NewJobForm() {
 
     const slug = `${toSlug(values.title)}-${nanoid(10)}`;
 
+    const companyLogoUrl = values.companyLogo || undefined;
+
     try {
       // Create the job data object
       const jobData = {
@@ -51,7 +55,7 @@ export default function NewJobForm() {
         approved: true, // Adjust as needed
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
-        companyLogoUrl: "https://via.placeholder.com/150",
+        companyLogoUrl: companyLogoUrl,
       };
 
       console.log("Job data being sent to API:", jobData); // Log the jobData
@@ -166,15 +170,17 @@ export default function NewJobForm() {
         )}
       </div>
 
-      {/* <div>
-        <label htmlFor="companyLogo" className="block font-medium mb-1">
-          Company logo
+      <div>
+        <label htmlFor="companyLogoUrl" className="block font-medium mb-1">
+          Company Logo URL
         </label>
         <input
-          {...register("companyLogo")}
-          type="file"
-          id="companyLogo"
-          accept="image/*"
+          {...register("companyLogo", {
+            required: "Company logo URL is required",
+          })}
+          type="text"
+          id="companyLogoUrl"
+          placeholder="Enter the URL of the company logo"
           className="w-full border rounded p-2"
         />
         {errors.companyLogo && (
@@ -182,7 +188,7 @@ export default function NewJobForm() {
             {errors.companyLogo.message}
           </p>
         )}
-      </div> */}
+      </div>
 
       <div>
         <label htmlFor="locationType" className="block font-medium mb-1">

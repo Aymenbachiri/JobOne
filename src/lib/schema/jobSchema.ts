@@ -4,12 +4,7 @@ export const jobSchema = z.object({
   title: z.string().min(1, { message: "Title is required" }),
   type: z.string().optional(),
   companyName: z.string().min(1, { message: "Company name is required" }),
-  companyLogo: z
-    .any()
-    .optional()
-    .refine((file) => file instanceof File, {
-      message: "Company logo must be a file",
-    }),
+  companyLogoUrl: z.string().url("Must be a valid URL").optional(),
   location: z.string().optional(),
   applicationEmail: z.string().email().optional(),
   url: z.string().url().optional(),

@@ -5,12 +5,13 @@ const requiredString = z.string().min(1, "Required");
 
 const companyLogoSchema = z
   .custom<File | undefined>()
-  .refine(
-    (file) => !file || (file instanceof File && file.type.startsWith("image/")),
-    "Must be an image file"
-  )
   .refine((file) => {
-    return !file || file.size < 1024 * 1024 * 2;
+    if (!file) return true; // Allow undefined/no file
+    return file instanceof File && file.type.startsWith("image/");
+  }, "Must be an image file")
+  .refine((file) => {
+    if (!file) return true; // Allow undefined/no file
+    return file.size < 1024 * 1024 * 2;
   }, "File must be less than 2MB");
 
 const applicationSchema = z
@@ -48,7 +49,7 @@ export const createJobSchema = z
       "Invalid job type"
     ),
     companyName: requiredString.max(100),
-    companyLogo: companyLogoSchema,
+    companyLogo: z.string().url().optional(),
     description: z.string().max(5000).optional(),
     salary: z.number().positive("Salary must be positive").optional(),
   })
