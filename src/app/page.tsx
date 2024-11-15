@@ -8,6 +8,7 @@ type SearchParams = Promise<{
   type?: string;
   location?: string;
   remote?: string;
+  page?: string;
 }>;
 
 export async function generateMetadata(props: {
@@ -27,7 +28,7 @@ export async function generateMetadata(props: {
 
 export default async function Home(props: { searchParams: SearchParams }) {
   const searchParams = await props.searchParams;
-  const { q, type, location, remote } = searchParams;
+  const { q, type, location, remote, page } = searchParams;
   const jobFilterValues: JobFilterValues = {
     q,
     type,
@@ -35,5 +36,10 @@ export default async function Home(props: { searchParams: SearchParams }) {
     remote: remote === "true",
   };
 
-  return <HomePage jobFilterValues={jobFilterValues} />;
+  return (
+    <HomePage
+      jobFilterValues={jobFilterValues}
+      page={page ? parseInt(page) : undefined}
+    />
+  );
 }
