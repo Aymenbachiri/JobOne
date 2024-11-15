@@ -27,10 +27,7 @@ export function JobListItem({ job }: JobListItemProps) {
     // eslint-disable-next-line react/jsx-no-comment-textnodes
     <article className="flex gap-3 rounded-lg border p-5 hover:bg-muted/60">
       <img
-        src={
-          companyLogoUrl ||
-          "/public/assets/images/company-logo-placeholder.webp"
-        }
+        src={companyLogoUrl || "/assets/images/company-logo-placeholder.webp"}
         alt={`${companyName} logo`}
         width={100}
         height={100}
