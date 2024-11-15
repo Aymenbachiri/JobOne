@@ -39,7 +39,7 @@ export function AddNewJob() {
       description: values.description?.trim(),
       applicationEmail: values.applicationEmail?.trim() || null,
       applicationUrl: values.applicationUrl?.trim() || null,
-      approved: true,
+      approved: false,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       companyLogoUrl,
