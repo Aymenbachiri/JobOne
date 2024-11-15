@@ -15,12 +15,13 @@ export function ApproveSubmissionForm({
 }: ApproveSubmissionFormProps) {
   const [formState, formAction] = useActionState(approveSubmission, undefined);
   const [, setValue] = useState("");
+  console.log(jobId);
 
   return (
     <form action={formAction} className="space-y-1">
       <input
         hidden
-        name="id"
+        name="jobId"
         value={jobId}
         onChange={(e) => setValue(e.target.value)}
       />
