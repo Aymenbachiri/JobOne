@@ -1,3 +1,83 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply h-screen;
+  }
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+#nprogress {
+  pointer-events: none !important;
+}
+
+#nprogress .bar {
+  background: #ff0000 !important;
+  position: fixed !important;
+  z-index: 1031 !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 4px !important;
+}
+
+#nprogress .peg {
+  display: block !important;
+  position: absolute !important;
+  right: 0px !important;
+  width: 100px !important;
+  height: 100% !important;
+  box-shadow: 0 0 10px #ff0000, 0 0 5px #ff0000 !important;
+  opacity: 1;
+  transform: rotate(3deg) translate(0px, -4px) !important;
+}
+
+#nprogress .spinner {
+  display: block !important;
+  position: fixed !important;
+  z-index: 1031 !important;
+  top: 15px !important;
+  right: 15px !important;
+}
+
+#nprogress .spinner-icon {
+  width: 18px !important;
+  height: 18px !important;
+  box-sizing: border-box !important;
+  border: solid 2px transparent !important;
+  border-top-color: #ff0000 !important;
+  border-left-color: #ff0000 !important;
+  border-radius: 50% !important;
+  animation: nprogress-spinner 400ms linear infinite !important;
+}
+
+@keyframes nprogress-spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

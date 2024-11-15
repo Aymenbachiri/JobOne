@@ -1,11 +1,10 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 
-export const MySuspense = ({
-  children,
-  fallback,
-}: {
+type Props = {
   children: React.ReactNode;
   fallback: React.ReactNode;
-}) => {
-  return <Suspense fallback={fallback}>{children}</Suspense>;
 };
+
+export function MySuspense({ children, fallback }: Props) {
+  return <Suspense fallback={fallback}>{children}</Suspense>;
+}

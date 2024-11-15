@@ -2,6 +2,8 @@ import JobFilterSidebar from "../home/JobFilterSidebar";
 import type { JobFilterValues } from "@/lib/schema/jobFilterSchema";
 import { JobResult } from "../home/JobResult";
 import { getTitle } from "@/lib/utils/utils";
+import { MySuspense } from "@/lib/utils/MySuspense";
+import { JobListItemFallback } from "../home/JobListItemFallback";
 
 type HomePageProps = {
   jobFilterValues: JobFilterValues;
@@ -19,8 +21,9 @@ export default function HomePage({ jobFilterValues, page }: HomePageProps) {
       </section>
       <section className="flex flex-col gap-4 md:flex-row">
         <JobFilterSidebar defaultValues={jobFilterValues} />
-
-        <JobResult jobFilterValues={jobFilterValues} page={page} />
+        <MySuspense fallback={<JobListItemFallback />}>
+          <JobResult jobFilterValues={jobFilterValues} page={page} />
+        </MySuspense>
       </section>
     </main>
   );

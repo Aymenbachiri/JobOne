@@ -1,7 +1,7 @@
 import { MySuspense } from "@/lib/utils/MySuspense";
-import { JobListItemFallback } from "./JobListItemFallback";
 import { JobList } from "./JobList";
 import type { JobFilterValues } from "@/lib/schema/jobFilterSchema";
+import { JobListItemFallback } from "./JobListItemFallback";
 
 type JobResultProps = {
   jobFilterValues: JobFilterValues;
