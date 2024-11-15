@@ -1,11 +1,9 @@
-import { MyImage } from "../common/MyImage";
 import { formatDate, formatMoney } from "@/lib/utils/utils";
 import { BriefcaseIcon } from "@/lib/icons/BriefcaseIcon";
 import { MapPinIcon } from "@/lib/icons/MapPinIcon";
 import { GlobeIcon } from "@/lib/icons/GlobeIcon";
 import { BanknoteIcon } from "@/lib/icons/BanknoteIcon";
 import { ClockIcon } from "@/lib/icons/GlockIcon";
-import companyLogoPlaceholder from "/public/assets/images/company-logo-placeholder.webp";
 import { Badge } from "./Badge";
 import type { JobType } from "@/lib/types/jobType";
 
@@ -15,7 +13,7 @@ type JobListItemProps = {
 
 export function JobListItem({ job }: JobListItemProps) {
   const {
-    //companyLogoUrl,
+    companyLogoUrl,
     companyName,
     title,
     type,
@@ -26,9 +24,13 @@ export function JobListItem({ job }: JobListItemProps) {
   } = job;
 
   return (
+    // eslint-disable-next-line react/jsx-no-comment-textnodes
     <article className="flex gap-3 rounded-lg border p-5 hover:bg-muted/60">
-      <MyImage
-        src={companyLogoPlaceholder}
+      <img
+        src={
+          companyLogoUrl ||
+          "/public/assets/images/company-logo-placeholder.webp"
+        }
         alt={`${companyName} logo`}
         width={100}
         height={100}

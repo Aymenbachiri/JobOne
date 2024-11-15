@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export function AddNewJob() {
-  const route = useRouter();
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -53,11 +53,11 @@ export function AddNewJob() {
         error: (err: Error) => err.message,
       });
       reset();
-      route.push("/job-submitted");
     } catch (error) {
       console.error("Error during Job submission:", error);
     } finally {
       setLoading(false);
+      router.push("/job-submitted");
     }
   };
   return {
