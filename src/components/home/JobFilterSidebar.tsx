@@ -55,7 +55,7 @@ export default async function JobFilterSidebar({
               <option value="">All locations</option>
               {Locations.map((location) => (
                 <option key={location} value={location}>
-                  {location}
+                  {location || "Unknown"}
                 </option>
               ))}
             </Select>

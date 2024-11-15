@@ -1,4 +1,11 @@
 import { SignUp } from "@clerk/nextjs";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Sign Up - Join One Jobs Today",
+  description:
+    "Create your One Jobs account to explore opportunities, post jobs, and connect with top employers or professionals.",
+};
 
 export default function Page() {
   return (

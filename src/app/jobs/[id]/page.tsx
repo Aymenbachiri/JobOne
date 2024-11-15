@@ -16,18 +16,6 @@ export async function generateMetadata({
   return {
     title: job.title,
     description: job.description,
-    openGraph: {
-      title: job.title,
-      description: job.description,
-      images: [
-        {
-          url: job.companyLogoUrl
-            ? job.companyLogoUrl
-            : "/assets/images/company-logo-placeholder.webp",
-          alt: job.companyName,
-        },
-      ],
-    },
   };
 }
 
