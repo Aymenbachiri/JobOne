@@ -28,7 +28,7 @@ export function JobPage({ job }: { job: JobType }) {
           <img
             src={companyLogoUrl}
             alt="Company logo"
-            className="rounded-xl w-[100px] h-[100px]"
+            className="rounded-xl w-fit h-[100px]"
           />
         ) : (
           <MyImage
