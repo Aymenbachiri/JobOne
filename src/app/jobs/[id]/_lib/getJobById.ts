@@ -3,7 +3,7 @@ import type { JobType } from "@/lib/types/jobType";
 export async function getJobById(id: string): Promise<JobType> {
   try {
     const res = await fetch(
-      `https://jobboardbackend.up.railway.app/api/jobs/${id}`
+      `https://jobboardbackend-i17f.onrender.com/api/jobs/${id}`
     );
 
     if (!res.ok) {

@@ -3,7 +3,7 @@ import type { CreateJobValues } from "./validation";
 export async function registerJob(jobData: CreateJobValues): Promise<void> {
   try {
     const response = await fetch(
-      "https://jobboardbackend.up.railway.app/api/jobs",
+      "https://jobboardbackend-i17f.onrender.com/api/jobs",
       {
         method: "POST",
         headers: {
