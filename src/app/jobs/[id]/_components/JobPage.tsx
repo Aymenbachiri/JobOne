@@ -10,12 +10,12 @@ import img from "/public/assets/images/company-logo-placeholder.webp";
 
 export function JobPage({ job }: { job: JobType }) {
   const {
-    applicationUrl,
-    companyLogoUrl,
-    companyName,
+    application_url,
+    company_logo_url,
+    company_name,
     description,
     location,
-    locationType,
+    location_type,
     salary,
     title,
     type,
@@ -23,10 +23,10 @@ export function JobPage({ job }: { job: JobType }) {
   return (
     <main className="w-full grow space-y-5 h-full mb-[50px]">
       <div className="flex items-center gap-3">
-        {companyLogoUrl ? (
+        {company_logo_url ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={companyLogoUrl}
+            src={company_logo_url}
             alt="Company logo"
             className="rounded-xl w-fit h-[100px]"
           />
@@ -43,15 +43,15 @@ export function JobPage({ job }: { job: JobType }) {
           <section>
             <h1 className="text-xl font-bold">{title}</h1>
             <p className="font-semibold">
-              {applicationUrl ? (
+              {application_url ? (
                 <MyLink
-                  href={new URL(applicationUrl).origin}
+                  href={new URL(application_url).origin}
                   className="text-green-500 hover:underline"
                 >
-                  {companyName}
+                  {company_name}
                 </MyLink>
               ) : (
-                <span>{companyName}</span>
+                <span>{company_name}</span>
               )}
             </p>
           </section>
@@ -62,7 +62,7 @@ export function JobPage({ job }: { job: JobType }) {
             </p>
             <p className="flex items-center gap-1.5">
               <MapPinIcon />
-              {locationType}
+              {location_type}
             </p>
             <p className="flex items-center gap-1.5">
               <GlobeIcon />

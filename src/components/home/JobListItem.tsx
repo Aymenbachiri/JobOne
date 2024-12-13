@@ -13,22 +13,22 @@ type JobListItemProps = {
 
 export function JobListItem({ job }: JobListItemProps) {
   const {
-    companyLogoUrl,
-    companyName,
+    company_logo_url,
+    company_name,
     title,
     type,
-    locationType,
+    location_type,
     location,
     salary,
-    createdAt,
+    created_at,
   } = job;
 
   return (
     // eslint-disable-next-line react/jsx-no-comment-textnodes
     <article className="flex gap-3 rounded-lg border p-5 hover:bg-muted/60">
       <img
-        src={companyLogoUrl || "/assets/images/company-logo-placeholder.webp"}
-        alt={`${companyName} logo`}
+        src={company_logo_url || "/assets/images/company-logo-placeholder.webp"}
+        alt={`${company_name} logo`}
         width={100}
         height={100}
         className="self-center rounded-lg"
@@ -36,7 +36,7 @@ export function JobListItem({ job }: JobListItemProps) {
       <div className="flex-grow space-y-3">
         <div>
           <h2 className="text-xl font-medium">{title}</h2>
-          <p className="text-muted-foreground">{companyName}</p>
+          <p className="text-muted-foreground">{company_name}</p>
         </div>
         <div className="text-muted-foreground">
           <p className="flex items-center gap-1.5 sm:hidden">
@@ -45,7 +45,7 @@ export function JobListItem({ job }: JobListItemProps) {
           </p>
           <p className="flex items-center gap-1.5">
             <MapPinIcon />
-            {locationType}
+            {location_type}
           </p>
           <p className="flex items-center gap-1.5">
             <GlobeIcon />
@@ -57,7 +57,7 @@ export function JobListItem({ job }: JobListItemProps) {
           </p>
           <p className="flex items-center gap-1.5 sm:hidden">
             <ClockIcon />
-            {formatDate(createdAt as Date)}
+            {formatDate(created_at!)}
           </p>
         </div>
       </div>
@@ -65,7 +65,7 @@ export function JobListItem({ job }: JobListItemProps) {
         <Badge>{type}</Badge>
         <span className="flex items-center gap-1.5 text-muted-foreground">
           <ClockIcon />
-          {formatDate(createdAt as Date)}
+          {formatDate(created_at!)}
         </span>
       </div>
     </article>

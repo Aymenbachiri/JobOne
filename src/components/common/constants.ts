@@ -1,2 +1,2 @@
-const baseUrl = "https://jobboardbackend-i17f.onrender.com/api";
+const baseUrl = "https://job-board-backend-express.vercel.app/api";
 export const apiUrl = `${baseUrl}/jobs`;

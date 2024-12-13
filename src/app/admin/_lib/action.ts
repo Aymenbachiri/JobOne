@@ -27,7 +27,7 @@ export async function approveSubmission(
     }
 
     const response = await fetch(
-      `https://jobboardbackend-i17f.onrender.com/api/jobs/${jobId}`,
+      `https://job-board-backend-express.vercel.app/api/jobs/${jobId}`,
 
       {
         method: "PUT",
@@ -67,7 +67,7 @@ export async function deleteJob(prevState: FormState, formData: FormData) {
     }
 
     const deleteResponse = await fetch(
-      `https://jobboardbackend-i17f.onrender.com/api/jobs/${jobId}`,
+      `https://job-board-backend-express.vercel.app/api/jobs/${jobId}`,
       {
         method: "DELETE",
       }

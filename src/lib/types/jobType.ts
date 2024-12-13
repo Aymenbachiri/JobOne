@@ -3,17 +3,17 @@ export type JobType = {
   slug: string;
   title: string;
   type: string;
-  locationType: string;
+  location_type: string;
   location: string;
   description: string;
   salary: number;
-  companyName: string;
-  applicationEmail?: string;
-  applicationUrl?: string;
-  companyLogoUrl?: string;
+  company_name: string;
+  application_email: string;
+  application_url: string;
+  company_logo_url: string;
   approved: boolean;
-  createdAt?: Date;
-  updatedAt?: Date;
+  created_at: string;
+  updated_at: string;
 };
 
 export const jobTypes = [
