@@ -26,7 +26,7 @@ export function filterJobs(jobs: JobType[], jobFilterValues: JobFilterValues) {
 
     const matchesType = type ? job.type === type : true;
     const matchesLocation = location ? job.location === location : true;
-    const matchesRemote = remote ? job.locationType === "Remote" : true;
+    const matchesRemote = remote ? job.location_type === "Remote" : true;
 
     const isApproved = job.approved === true;
 
